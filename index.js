@@ -27,7 +27,6 @@ app.get('/', (req, res) => {
     });
 });
     
-
 // INSERTAR DATOS EN LA BASE DE DATOSs
 
 app.post('/create', (req, res) => {
