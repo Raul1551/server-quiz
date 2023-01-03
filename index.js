@@ -6,7 +6,6 @@ import { PORT } from './config.js';
 
 const app = express();
 
-let bdatos;
 
 app.use(
     express.urlencoded({
@@ -27,9 +26,22 @@ app.get('/', (req, res) => {
     });
 });
     
-// INSERTAR DATOS EN LA BASE DE DATOSs
+// INSERTAR DATOS EN LA BASE DE DATOS
 
 app.post('/create', (req, res) => {
+    let resultado = req.body;
+
+    // const insert = `INSERT INTO users (id, nombre, apellido, email, phone, perfil) VALUES (NULL, '${JSON.stringify(bdatos)}', "rodriguez", "rodrig@gmail.com", "756898766", "gastronomico")`;
+    const insert = `INSERT INTO users (id, nombre, apellido, email, telefono, perfil, respuestas) VALUES (NULL, '${resultado[0]}', '${resultado[1]}', '${resultado[2]}', '${resultado[3]}', '${resultado[4]}', '${resultado[5]}')`;
+    connector.query(insert, (err, result) => {
+        if (err) throw err;
+        res.send(JSON.stringify('Datos guardados'));
+        console.log(result);
+    });
+
+});
+
+/* app.post('/create', (req, res) => {
     bdatos = req.body;
     const insert = `INSERT INTO users (id, nombre) VALUES (NULL, '${JSON.stringify(bdatos)}')`;
     connector.query(insert, (err, result) => {
@@ -38,7 +50,7 @@ app.post('/create', (req, res) => {
         console.log(result);
     });
 
-});
+}); */
 
 app.listen(PORT);
 console.log('Server on Port', PORT);
